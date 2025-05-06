@@ -1,5 +1,5 @@
 <?php
-include "aksi.php";
+include "spp_aksi.php";
 session_start();
 
 
@@ -7,41 +7,41 @@ $username =$_SESSION['username'];
 
 
 if (isset($_POST['create'])) {
-    createKelas($_POST['nama_kelas'], $_POST['kompetensi_keahlian']);
-    header("Location: index.php?success=create");
+    createSpp($_POST['id_spp'], $_POST['tahun'], $_POST['nominal'] );
+    header("Location: spp.php?success=create");
     exit;
 }
 
 if (isset($_POST['update'])) {
-    updateKelas($_POST['id_kelas'], $_POST['nama_kelas'], $_POST['kompetensi_keahlian']);
-    header("Location: index.php?success=update");
+    updateSpp($_POST['id_spp'], $_POST['tahun'], $_POST['nominal'], );
+    header("Location: siswa.php?success=update");
     exit;
 }
 
 if (isset($_GET['delete'])) {
-    deleteKelas($_GET['delete']);
-    header("Location: index.php?success=delete");
+    deleteSpp($_GET['delete']);
+    header("Location: siswa.php?success=delete");
     exit;
 }
 
-$id = $_GET['edit'] ?? null;
+$id_spp = $_GET['edit'] ?? null;
 
-if ($id) {
-    $kelasToEdit = getKelasById($id);
+if ($id_spp) {
+    $sppToEdit = getSppById($id_spp);
 }
 
-$kelasData = getAllData();
+$sppData = getAllData();
 
 if (isset($_GET['success'])) {
     switch ($_GET['success']) {
         case 'create':
-            $successMessage = " Data kelas berhasil ditambahkan.";
+            $successMessage = " Data spp berhasil ditambahkan.";
             break;
         case 'update':
-            $successMessage = "Data kelas berhasil diperbarui.";
+            $successMessage = "Data spp berhasil diperbarui.";
             break;
         case 'delete':
-            $successMessage = " Data kelas berhasil dihapus.";
+            $successMessage = " Data spp berhasil dihapus.";
             break;
     }
 }
@@ -54,7 +54,7 @@ if (isset($_GET['success'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - Daftar Kelas</title>
+    <title>Admin - Daftar Spp</title>
     <link href="../output.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
@@ -89,7 +89,7 @@ include '../componen/navbar.php';
 <div class="container mx-auto  my-5 p-5 bg-white rounded shadow-md">
 <div class="flex justify-between mb-4 ">
 
-    <h1 class="text-3xl font-bold mb-5">Daftar Kelas</h1>
+    <h1 class="text-3xl font-bold mb-5">Daftar spp</h1>
    
 
 </div>
@@ -102,35 +102,39 @@ include '../componen/navbar.php';
 <?php endif; ?>
 
 <!-- ✅ FORM -->
-<?php if (isset($kelasToEdit)): ?>
+<?php if (isset($sppToEdit)): ?>
     <form action="" method="POST" class="mb-5">
-        <input type="hidden" name="id_kelas" value="<?= $kelasToEdit['id_kelas']; ?>">
+        <input type="hidden" name="id_spp" value="<?= $sppToEdit['id_spp']; ?>">
         <div class="flex mb-3">
-            <input type="text" name="nama_kelas" value="<?= htmlspecialchars($kelasToEdit['nama_kelas']); ?>" class="px-4 py-2 w-1/2 border rounded" required>
-            <input type="text" name="kompetensi_keahlian" value="<?= htmlspecialchars($kelasToEdit['kompetensi_keahlian']); ?>" class="px-4 py-2 w-1/2 ml-2 border rounded" required>
-            <button type="submit" name="update" class="ml-2 px-4 py-2 bg-red-600 text-white rounded">Update Kelas</button>
+            <input type="text" name="id_spp" value="<?= htmlspecialchars($sppToEdit['id_spp']); ?>" class="px-4 py-2 w-1/2 border rounded" required>
+            <input type="text" name="tahun" value="<?= htmlspecialchars($sppToEdit['tahun']); ?>" class="px-4 py-2 w-1/2 ml-2 border rounded" required>
+            <input type="text" name="nominal" value="<?= htmlspecialchars($sppToEdit['nominal']); ?>" class="px-4 py-2 w-1/2 border rounded" required>
+            <button type="submit" name="update" class="ml-2 px-4 py-2 bg-red-600 text-white rounded">Update Spp</button>
         </div>
     </form>
 <?php else: ?>
-    <form action="" method="POST" class="mb-5">
-        <div class="flex mb-3">
-            <input type="text" name="nama_kelas" class="px-4 py-2 w-1/2 border rounded" placeholder="Nama Kelas" required>
+    <form action="" method="POST" class="mb-5 flex">
+        <div class="flex justify-between">
+        <a href="/php-front/admin/TambahSpp/index.php" type="button" class="bg-blue-600 cursor-pointer rounded-md text-white px-4 py-2 hover:bg-blue-300">Tambah Siswa</a>
+        </div> 
+        <!-- <div class="flex mb-3">
+            <input type="text" name="Nis" class="px-4 py-2 w-1/2 border rounded" placeholder="Nis" required>
             <input type="text" name="kompetensi_keahlian" class="px-4 py-2 w-1/2 ml-2 border rounded" placeholder="Kompetensi Keahlian" required>
             <button type="submit" name="create" class="ml-2 px-4 py-2 bg-blue-500 text-white rounded ">Tambah Kelas</button>
-        </div>
+        </div> -->
     </form>
 <?php endif; ?>
 
 <!-- ✅ TABLE -->
-<?php if (empty($kelasData)): ?>
-    <p>Tidak ada data kelas ditemukan.</p>
+<?php if (empty($sppData)): ?>
+    <p>Tidak ada data siswa ditemukan.</p>
 <?php else: ?>
     <table class="min-w-full table-auto border-collapse">
         <thead>
             <tr class="bg-gray-200">
-                <th class="px-4 py-2">ID Kelas</th>
-                <th class="px-4 py-2">Nama Kelas</th>
-                <th class="px-4 py-2">Kompetensi Keahlian</th>
+                <th class="px-4 py-2">ID Spp</th>
+                <th class="px-4 py-2">Tahun</th>
+                <th class="px-4 py-2">Nominal</th>
                 <th class="px-4 py-2">Aksi</th>
             </tr>
         </thead>
@@ -140,18 +144,17 @@ include '../componen/navbar.php';
         <h1><?=htmlspecialchars( $username)?></h1>
 
         <form action="aksi_logout.php" method="POST">
-            <button action="aksi_logout.php">Logout</button>
 
-            <?php foreach ($kelasData as $kelas): ?>
+            <?php foreach ($sppData as $spp): ?>
                 <tr class="border-t">
-                    <td class="px-4 py-2"><?= htmlspecialchars($kelas['id_kelas']); ?></td>
-                    <td class="px-4 py-2"><?= htmlspecialchars($kelas['nama_kelas']); ?></td>
-                    <td class="px-4 py-2"><?= htmlspecialchars($kelas['kompetensi_keahlian']); ?></td>
+                    <td class="px-4 py-2"><?= htmlspecialchars($spp['id_spp']); ?></td>
+                    <td class="px-4 py-2"><?= htmlspecialchars($spp['tahun']); ?></td>
+                    <td class="px-4 py-2"><?= htmlspecialchars($spp['nominal']); ?></td>
                     <td class="px-4 py-2">
-                    <a href="edit/index.php?id=<?= $kelas['id_kelas']; ?>" class="text-blue-500 hover:underline">Edit</a>
+                    <a href="edit/spp.php?id=<?= $spp['id_spp']; ?>" class="text-blue-500 hover:underline">Edit</a>
 
 
-                        <a href="index.php?delete=<?= $kelas['id_kelas']; ?>"
+                        <a href="spp.php?delete=<?= $spp['id_spp']; ?>"
                            onclick="return confirm('Yakin ingin menghapus data ini?')"
                            class="text-red-500 hover:underline">Delete</a>
                     </td>

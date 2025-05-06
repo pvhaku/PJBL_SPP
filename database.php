@@ -5,7 +5,7 @@ function getDatabaseConnection() {
     $host = "localhost";
     $username = "root";
     $password = "";
-    $dbname = "spp";
+    $dbname = "db_spp";
 
     try {
         $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);

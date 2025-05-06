@@ -28,6 +28,7 @@ if (isset($_POST['update'])) {
     <title>Edit Kelas</title>
     <link href="../../output.css" rel="stylesheet">
 </head>
+
 <body class="bg-gray-100">
 <div class="container mx-auto my-5 p-5 bg-white rounded shadow-md">
     <h1 class="text-2xl font-bold mb-4">Edit Kelas</h1>
@@ -43,7 +44,7 @@ if (isset($_POST['update'])) {
         </div>
         <div class="flex justify-end">
             <a href="../index.php" class="mr-3 px-4 py-2 bg-gray-300 rounded">Batal</a>
-            <button type="submit" name="update" class="px-4 py-2 bg-blue-600 text-white rounded">Update</button>
+            <button type="submit" name="update" class="px-4 py-2 bg-blue-600 cursor-pointer text-white rounded">Update</button>
         </div>
     </form>
 </div>
