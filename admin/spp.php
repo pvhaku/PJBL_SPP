@@ -115,7 +115,7 @@ include '../componen/navbar.php';
 <?php else: ?>
     <form action="" method="POST" class="mb-5 flex">
         <div class="flex justify-between">
-        <a href="/php-front/admin/TambahSpp/index.php" type="button" class="bg-blue-600 cursor-pointer rounded-md text-white px-4 py-2 hover:bg-blue-300">Tambah Siswa</a>
+        <a href="/php-front/admin/TambahSpp/index.php" type="button" class="bg-blue-600 cursor-pointer rounded-md text-white px-4 py-2 hover:bg-blue-300">Tambah Spp</a>
         </div> 
         <!-- <div class="flex mb-3">
             <input type="text" name="Nis" class="px-4 py-2 w-1/2 border rounded" placeholder="Nis" required>
@@ -127,7 +127,7 @@ include '../componen/navbar.php';
 
 <!-- ✅ TABLE -->
 <?php if (empty($sppData)): ?>
-    <p>Tidak ada data siswa ditemukan.</p>
+    <p>Tidak ada data spp ditemukan.</p>
 <?php else: ?>
     <table class="min-w-full table-auto border-collapse">
         <thead>
@@ -151,7 +151,7 @@ include '../componen/navbar.php';
                     <td class="px-4 py-2"><?= htmlspecialchars($spp['tahun']); ?></td>
                     <td class="px-4 py-2"><?= htmlspecialchars($spp['nominal']); ?></td>
                     <td class="px-4 py-2">
-                    <a href="edit/spp.php?id=<?= $spp['id_spp']; ?>" class="text-blue-500 hover:underline">Edit</a>
+                    <a href="edit_spp.php?id=<?= $spp['id_spp']; ?>" class="text-blue-500 hover:underline">Edit</a>
 
 
                         <a href="spp.php?delete=<?= $spp['id_spp']; ?>"

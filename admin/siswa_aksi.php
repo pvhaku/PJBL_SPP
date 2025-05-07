@@ -22,11 +22,11 @@ function getSiswaById($nisn) {
 
 }
 
-function createSiswa($nis, $nisn, $nama, $id_kelas, $password) {
+function createSiswa($nisn, $nis, $nama, $id_kelas, $id_spp, $password) {
     $conn = getDatabaseConnection();
-    $sql = "INSERT INTO siswa (nis, nisn, nama, id_kelas, password, ) VALUES (?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO siswa (nisn, nis, nama, id_kelas, id_spp, password) VALUES (?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->execute([ $nis, $nisn, $nama, $id_kelas, $password]);
+    $stmt->execute([$nisn, $nis, $nama, $id_kelas, $id_spp, $password]);
     header("Location: /admin/siswa.php");
     exit;
 }

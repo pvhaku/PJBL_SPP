@@ -41,8 +41,8 @@
          
       </div>
       <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-        <form>
-    <button action="aksi_logout.php"  class="px-2 py-1 w-23 bg-red-600 cursor-pointer text-slate-200 rounded-md" type="submit">Logout</button>
+        <form action="../admin/aksi_logout.php">
+    <button action="../admin/aksi_logout.php"  class="px-2 py-1 w-23 bg-red-600 cursor-pointer text-slate-200 rounded-md" type="submit">Logout</button>
         </form>
         <!-- Profile dropdown -->
         <div class="relative ml-3">

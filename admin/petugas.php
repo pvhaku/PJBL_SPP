@@ -7,7 +7,7 @@ $username =$_SESSION['username'];
 
 
 if (isset($_POST['create'])) {
-    createPetugas($_POST['id_petugas'], $_POST['nama_petugas']);
+    createPetugas($_POST['id_petugas'], $_POST['nama_petugas'], $_POST['password']);
     header("Location: petugas.php?success=create");
     exit;
 }
@@ -146,7 +146,7 @@ include '../componen/navbar.php';
             <?php foreach ($petugasData as $petugas): ?>
                 <tr class="border-t">
                     <td class="px-4 py-2"><?= htmlspecialchars($petugas['id_petugas']); ?></td>
-                    <td class="px-4 py-2"><?= htmlspecialchars($petugas['nama_petugas']); ?></td>
+                    <td class="px-4 py-2"><?= htmlspecialchars($petugas['username']); ?></td>
                     <td class="px-4 py-2">
                     <a href="edit_petugas.php?id_petugas=<?= $petugas['id_petugas']; ?>" class="text-blue-500 hover:underline">Edit</a>
 

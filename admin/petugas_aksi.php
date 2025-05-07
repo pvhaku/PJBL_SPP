@@ -22,9 +22,9 @@ function getPetugasById($id_petugas) {
 
 }
 
-function createPetugas($id_petugas, $nama) {
+function createPetugas($id_petugas, $nama , $password) {
     $conn = getDatabaseConnection();
-    $sql = "INSERT INTO petugas (id_petugas, nama_petugas) VALUES (?, ?)";
+    $sql = "INSERT INTO petugas (id_petugas, nama_petugas, password) VALUES (?, ?)";
     $stmt = $conn->prepare($sql);
     $stmt->execute([ $id_petugas, $nama]);
     header("Location: /admin/petugas.php");

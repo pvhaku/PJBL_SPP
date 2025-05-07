@@ -22,11 +22,11 @@ function getSppById($id_spp) {
 
 }
 
-function createSpp($id_spp, $tahun, $nominal) {
+function createSpp( $tahun, $nominal) {
     $conn = getDatabaseConnection();
-    $sql = "INSERT INTO spp (id_spp, tahun, nominal, ) VALUES (?, ?)";
+    $sql = "INSERT INTO spp ( tahun, nominal, ) VALUES (?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->execute([ $id_spp, $tahun, $nominal]);
+    $stmt->execute([ $tahun, $nominal]);
     header("Location: /admin/spp.php");
     exit;
 }

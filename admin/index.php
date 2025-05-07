@@ -139,8 +139,8 @@ include '../componen/navbar.php';
 
         <h1><?=htmlspecialchars( $username)?></h1>
 
-        <form action="aksi_logout.php" method="POST">
-            <button action="aksi_logout.php">Logout</button>
+     
+          
 
             <?php foreach ($kelasData as $kelas): ?>
                 <tr class="border-t">
@@ -157,7 +157,7 @@ include '../componen/navbar.php';
                     </td>
                 </tr>
             <?php endforeach; ?>
-            </form>
+          
         </tbody>
     </table>
 
