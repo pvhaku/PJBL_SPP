@@ -1,5 +1,5 @@
 <?php
-include __DIR__ . '/../database.php';
+include __DIR__. '/../database.php';
 
 
 function getAllData() {
@@ -17,7 +17,7 @@ function getSiswaById($nisn) {
     $stmt = $conn->prepare($sql);
     $stmt->execute([$nisn]);
     return $stmt->fetch(PDO::FETCH_ASSOC);
-    header("Location: /admin/siswa.php");
+    header("Location:  /php-front/admin/siswa.php");
     exit;
 
 }
@@ -27,14 +27,16 @@ function createSiswa($nisn, $nis, $nama, $id_kelas, $id_spp, $password) {
     $sql = "INSERT INTO siswa (nisn, nis, nama, id_kelas, id_spp, password) VALUES (?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
     $stmt->execute([$nisn, $nis, $nama, $id_kelas, $id_spp, $password]);
-    header("Location: /admin/siswa.php");
+    header("Location:  /php-front/admin/siswa.php");
     exit;
 }
-function updateSiswa($nis, $nama, $id_kelas, $nisn) {
+function updateSiswa( $nis, $nama, $id_kelas, $id_spp, $nisn) {
     $conn = getDatabaseConnection();
-    $sql = "UPDATE siswa SET nis = ?, nama = ?, id_kelas = ? WHERE nisn = ?";
+    $sql = "UPDATE siswa SET nis = ?, nama = ?, id_kelas = ?, id_spp = ? WHERE nisn = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->execute([$nis, $nama, $id_kelas, $nisn]);
+    $stmt->execute([ $nis, $nama, $id_kelas, $id_spp, $nisn]);
+    header("Location:  /php-front/admin/siswa.php");
+    exit;
 }
 
 
@@ -44,7 +46,7 @@ function deleteSiswa($nisn) {
     $sql = "DELETE FROM siswa WHERE nisn = ?";
     $stmt = $conn->prepare($sql);
     $stmt->execute([$nisn]);
-    header("Location: /admin/siswa.php");
+    header("Location:  /php-front/admin/siswa.php");
     exit;
 }
 ?>

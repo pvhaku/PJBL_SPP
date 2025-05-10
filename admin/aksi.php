@@ -27,7 +27,7 @@ function createKelas($nama_kelas, $kompetensi_keahlian) {
     $sql = "INSERT INTO kelas (nama_kelas, kompetensi_keahlian) VALUES (?, ?)";
     $stmt = $conn->prepare($sql);
     $stmt->execute([$nama_kelas, $kompetensi_keahlian]);
-    header("Location: /admin/index.php");
+    header("Location: /php-front/admin/index.php");
     exit;
 }
 
@@ -36,7 +36,7 @@ function updateKelas($id_kelas, $nama_kelas, $kompetensi_keahlian) {
     $sql = "UPDATE kelas SET nama_kelas = ?, kompetensi_keahlian = ? WHERE id_kelas = ?";
     $stmt = $conn->prepare($sql);
     $stmt->execute([$nama_kelas, $kompetensi_keahlian, $id_kelas]);
-    header("Location: /admin/index.php");
+    header("Location: /php-front/admin/index.php");
     exit;
 }
 
@@ -46,7 +46,7 @@ function deleteKelas($id_kelas) {
     $sql = "DELETE FROM kelas WHERE id_kelas = ?";
     $stmt = $conn->prepare($sql);
     $stmt->execute([$id_kelas]);
-    header("Location: /admin/index.php");
+    header("Location: /php-front/admin/index.php");
     exit;
 }
 ?>

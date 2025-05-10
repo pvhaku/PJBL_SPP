@@ -14,9 +14,8 @@ if (!$petugas) {
     exit;
 }
 
-if (isset($_POST['update'])) {
-    updatePetugas($_POST['id_petugas'], $_POST['nama_petugas']);
-    header('Location: ../petugas.php?success=update');
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
+    updatePetugas($_POST['id_petugas'], $_POST['username']);
     exit;
 }
 ?>
@@ -37,10 +36,10 @@ if (isset($_POST['update'])) {
     <input type="hidden" name="id_petugas" value="<?= htmlspecialchars($petugas['id_petugas']); ?>">
         <div class="mb-3">
             <label class="block font-semibold">Nama Petugas</label>
-            <input type="text" name="nama_petugas" value="<?= htmlspecialchars($petugas['nama_petugas']); ?>" class="w-full px-4 py-2 border rounded" required>
+            <input type="text" name="username" value="<?= htmlspecialchars($petugas['username']); ?>" class="w-full px-4 py-2 border rounded" required>
         </div>
         <div class="flex justify-end">
-            <a href="/admin/petugas.php" class="mr-3 px-4 py-2 bg-gray-300 rounded">Batal</a>
+            <a href="/php-front/admin/petugas.php" class="mr-3 px-4 py-2 bg-gray-300 rounded">Batal</a>
             <button type="submit" name="update" class="px-4 py-2 bg-blue-600 text-white rounded">Update</button>
         </div>
     </form>

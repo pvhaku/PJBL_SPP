@@ -4,7 +4,7 @@ session_start();
 
 if (isset($_POST['create'])) {
   createSpp($_POST['tahun'], $_POST['nominal']);
-  header('Location: ../index.php?success=update');
+  header('Location: ../spp.php?success=update');
   exit;
 }
 ?>
@@ -24,22 +24,6 @@ if (isset($_POST['create'])) {
   <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
     <div class="relative flex h-16 items-center justify-between">
       <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
-        <!-- Mobile menu button-->
-
-        <!--
-            Icon when menu is closed.
-
-            Menu open: "hidden", Menu closed: "block"
-          -->
-        <svg class="block size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-        </svg>
-        <!--
-            Icon when menu is open.
-
-            Menu open: "block", Menu closed: "hidden"
-          -->
-
         </button>
       </div>
       <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
@@ -100,8 +84,8 @@ if (isset($_POST['create'])) {
         <input type="text" name="tahun" id="tahun" class="w-full border rounded-md ">
       </div>
       <div>
-        <label for="Nis" class="block text-md font-semibold ">Nominal</label>
-        <input type="text" id="nominal" name="nominal" class="w-full border rounded-md ">
+        <label for="nominal" class="block text-md font-semibold ">Nominal</label>
+        <input type="int" id="nominal" name="nominal" class="w-full border rounded-md ">
       </div>
       <div class=" flex justify-between">
         <a href="/php-front/admin/spp.php" type="button" class="bg-blue-500 cursor-pointer text-white px-4 py-2 rounded-md hover:bg-blue-300">Kembali</a>

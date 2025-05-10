@@ -129,7 +129,7 @@ include '../componen/navbar.php';
 <?php if (empty($sppData)): ?>
     <p>Tidak ada data spp ditemukan.</p>
 <?php else: ?>
-    <table class="min-w-full table-auto border-collapse">
+    <table class="min-w-full table-auto border-collapse text-center">
         <thead>
             <tr class="bg-gray-200">
                 <th class="px-4 py-2">ID Spp</th>
@@ -151,7 +151,7 @@ include '../componen/navbar.php';
                     <td class="px-4 py-2"><?= htmlspecialchars($spp['tahun']); ?></td>
                     <td class="px-4 py-2"><?= htmlspecialchars($spp['nominal']); ?></td>
                     <td class="px-4 py-2">
-                    <a href="edit_spp.php?id=<?= $spp['id_spp']; ?>" class="text-blue-500 hover:underline">Edit</a>
+                    <a href="edit_spp.php?id_spp=<?= $spp['id_spp']; ?>" class="text-blue-500 hover:underline">Edit</a>
 
 
                         <a href="spp.php?delete=<?= $spp['id_spp']; ?>"

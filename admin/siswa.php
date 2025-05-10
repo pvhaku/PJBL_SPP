@@ -132,7 +132,7 @@ include '../componen/navbar.php';
 <?php if (empty($siswaData)): ?>
     <p>Tidak ada data siswa ditemukan.</p>
 <?php else: ?>
-    <table class="min-w-full table-auto border-collapse">
+    <table class="min-w-full table-auto border-collapse text-center">
         <thead>
             <tr class="bg-gray-200">
                 <th class="px-4 py-2">Nisn</th>

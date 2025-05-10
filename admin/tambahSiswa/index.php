@@ -4,7 +4,6 @@ session_start();
 
 if (isset($_POST['create'])) {
   createSiswa($_POST['nisn'], $_POST['nis'], $_POST['nama'], $_POST['id_kelas'], $_POST['id_spp'], $_POST['password']);
-
   header('Location: ../siswa.php?success=update');
   exit;
 }

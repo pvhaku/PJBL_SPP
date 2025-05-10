@@ -7,13 +7,13 @@ $username =$_SESSION['username'];
 
 
 if (isset($_POST['create'])) {
-    createPetugas($_POST['id_petugas'], $_POST['nama_petugas'], $_POST['password']);
+    createPetugas($_POST['id_petugas'], $_POST['username'], $_POST['password']);
     header("Location: petugas.php?success=create");
     exit;
 }
 
 if (isset($_POST['update'])) {
-    updatePetugas($_POST['id_petugas'], $_POST['nama_petugas']);
+    updatePetugas($_POST['id_petugas'], $_POST['username']);
     header("Location: petugas.php?success=update");
     exit;
 }
@@ -107,8 +107,8 @@ include '../componen/navbar.php';
         <input type="hidden" name="id_petugas" value="<?= $petugasToEdit['id_petugas']; ?>">
         <div class="flex mb-3">
             <input type="text" name="id_petugas" value="<?= htmlspecialchars($petugasToEdit['id_petugas']); ?>" class="px-4 py-2 w-1/2 border rounded" required>
-            <input type="text" name="nama_petugas" value="<?= htmlspecialchars($petugasToEdit['nama_petugas']); ?>" class="px-4 py-2 w-1/2 ml-2 border rounded" required>
-            <button type="submit" name="update" class="ml-2 px-4 py-2 bg-red-600 text-white rounded">Update siswa</button>
+            <input type="text" name="username" value="<?= htmlspecialchars($petugasToEdit['username']); ?>" class="px-4 py-2 w-1/2 ml-2 border rounded" required>
+            <button type="submit" name="update" class="ml-2 px-4 py-2 bg-red-600 text-white rounded">Update petugas</button>
         </div>
     </form>
 <?php else: ?>
@@ -128,7 +128,7 @@ include '../componen/navbar.php';
 <?php if (empty($petugasData)): ?>
     <p>Tidak ada data petugas ditemukan.</p>
 <?php else: ?>
-    <table class="min-w-full table-auto border-collapse">
+    <table class="min-w-full table-auto border-collapse text-center">
         <thead>
             <tr class="bg-gray-200">
                 <th class="px-4 py-2">ID Petugas</th>
