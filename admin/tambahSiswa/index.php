@@ -3,7 +3,7 @@ include '../siswa_aksi.php';
 session_start();
 
 if (isset($_POST['create'])) {
-  createSiswa($_POST['nisn'], $_POST['nis'], $_POST['nama'], $_POST['id_kelas'], $_POST['id_spp'], $_POST['password']);
+  createSiswa($_POST['nisn'], $_POST['nis'], $_POST['nama'], $_POST['id_kelas'], $_POST['id_spp'], $_POST['alamat']);
   header('Location: ../siswa.php?success=update');
   exit;
 }
@@ -70,8 +70,8 @@ if (isset($_POST['create'])) {
       </div>
 
       <div>
-        <label for="password" class="block font-semibold">Password</label>
-        <input type="password" id="password" name="password" required class="w-full border px-2 py-1 rounded-md">
+        <label for="alamat" class="block font-semibold">Alamat</label>
+        <input type="text" id="alamat" name="alamat" required class="w-full border px-2 py-1 rounded-md">
       </div>
       <div>
         <label for="id_spp" class="block font-semibold">ID SPP</label>

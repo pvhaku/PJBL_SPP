@@ -5,6 +5,7 @@ session_start();
 
 $username =$_SESSION['username'];
 
+$totalBayarBulanIni = countAllSpp();
 
 if (isset($_POST['create'])) {
     createSpp($_POST['id_spp'], $_POST['tahun'], $_POST['nominal'] );
@@ -72,15 +73,24 @@ include '../componen/navbar.php';
   <div class="grid grid-cols-3 gap-20">
     <div class="bg-white text-black flex flex-col justify-center items-center rounded-md border py-6 px-10 shadow-md font-bold">
       <p>Jumlah siswa</p>
-      <p>1</p>
+      <?php
+        echo countSiswa();
+      ?>
+      <p></p>
     </div>
     <div class="bg-white text-black flex flex-col justify-center items-center rounded-md border py-6 px-10 shadow-md font-bold">
       <p>Jumlah petugas</p>
-      <p>1</p>
+      <?php
+        echo countPetugas();
+      ?>
+      <p></p>
     </div>
     <div class="bg-white text-black flex flex-col justify-center items-center rounded-md border py-6 px-10 shadow-md font-bold">
       <p>Total pembayaran bulan ini</p>
-      <p>1</p>
+      <?php
+       echo number_format($totalBayarBulanIni, 0, ',', '.');
+      ?>
+      <p></p>
     </div>
   </div>
 </section>

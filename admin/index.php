@@ -5,6 +5,7 @@ session_start();
 
 $username =$_SESSION['username'];
 
+$totalBayarBulanIni = countAllSpp();
 
 if (isset($_POST['create'])) {
     createKelas($_POST['nama_kelas'], $_POST['kompetensi_keahlian']);
@@ -71,15 +72,22 @@ include '../componen/navbar.php';
 <section class="flex justify-center mt-4">
   <div class="grid grid-cols-3 gap-20">
     <div class="bg-white text-black flex flex-col justify-center items-center rounded-md border py-6 px-10 shadow-md font-bold">
-      <p>Jumlah siswa</p>
-      <p>1</p>
+    <p>Jumlah siswa</p>
+      <?php
+      echo countSiswa();
+    ?>
+      <p></p>
     </div>
     <div class="bg-white text-black flex flex-col justify-center items-center rounded-md border py-6 px-10 shadow-md font-bold">
       <p>Jumlah petugas</p>
-      <p>1</p>
+    <?php
+        echo countPetugas();
+    ?>
+      <p></p>
     </div>
     <div class="bg-white text-black flex flex-col justify-center items-center rounded-md border py-6 px-10 shadow-md font-bold">
       <p>Total pembayaran bulan ini</p>
+      
       <p>1</p>
     </div>
   </div>
@@ -90,7 +98,6 @@ include '../componen/navbar.php';
 <div class="flex justify-between mb-4 ">
 
     <h1 class="text-3xl font-bold mb-5">Daftar Kelas</h1>
-   
 
 </div>
 

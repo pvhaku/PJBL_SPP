@@ -85,11 +85,11 @@ if (isset($_POST['create'])) {
       </div>
       <div>
         <label for="nominal" class="block text-md font-semibold ">Nominal</label>
-        <input type="int" id="nominal" name="nominal" class="w-full border rounded-md ">
+        <input type="text" id="nominal" name="nominal" class="w-full border rounded-md ">
       </div>
       <div class=" flex justify-between">
         <a href="/php-front/admin/spp.php" type="button" class="bg-blue-500 cursor-pointer text-white px-4 py-2 rounded-md hover:bg-blue-300">Kembali</a>
-        <button type="submit" class="bg-green-500 cursor-pointer text-white px-4 py-2 rounded-md hover:bg-green-300">Simpan</button>
+        <button type="submit" name="create" class="bg-green-500 cursor-pointer text-white px-4 py-2 rounded-md hover:bg-green-300">Simpan</button>
       </div>
 
 

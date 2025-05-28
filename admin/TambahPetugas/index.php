@@ -3,7 +3,7 @@ include '../petugas_aksi.php';
 session_start();
 
 if (isset($_POST['create'])) {
-  createPetugas($_POST['id_petugas'], $_POST['username'], $_POST['password']);
+  createPetugas( $_POST['username'], $_POST['password']);
   header('Location: ../petugas.php?success=update');
   exit;
 }
@@ -96,7 +96,7 @@ if (isset($_POST['create'])) {
       <h2 class=" font-bold text-3xl text-center">Tambah Petugas</h2>
 <div>
   <label for="nama petugas" class="block text-md font-semibold ">Nama Petugas</label>
-  <input type=" text" id="username" name="username" class="w-full border rounded-md "> 
+  <input type="text" id="username" name="username" class="w-full border rounded-md "> 
 </div>
 <div>
   <label for="password" class="block text-md font-semibold ">Password</label>
@@ -104,7 +104,7 @@ if (isset($_POST['create'])) {
 </div>
 <div class=" flex justify-between">
   <a href="/php-front/admin/petugas.php" type="button" class="bg-blue-500 cursor-pointer text-white px-4 py-2 rounded-md hover:bg-blue-300">Kembali</a>
-  <button type="submit" class="bg-green-500 cursor-pointer text-white px-4 py-2 rounded-md hover:bg-green-300">Simpan</button>
+  <button type="submit" name="create" class="bg-green-500 cursor-pointer text-white px-4 py-2 rounded-md hover:bg-green-300">Simpan</button>
 </div>
   
 

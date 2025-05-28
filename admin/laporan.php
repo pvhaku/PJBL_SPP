@@ -1,52 +1,21 @@
 <?php
-include "siswa_aksi.php";
+include "laporan_aksi.php";
 session_start();
-
-
-$username =$_SESSION['username'];
-
-
-if (isset($_POST['create'])) {
-    createSiswa($_POST['nis'], $_POST['nama'], $_POST['kelas'], $_POST['password']);
-    header("Location: siswa.php?success=create");
-    exit;
-}
-
-if (isset($_POST['update'])) {
-    updateSiswa($_POST['nis'], $_POST['nama'], $_POST['kelas'], $_POST['password']);
-    header("Location: siswa.php?success=update");
-    exit;
-}
+$username = $_SESSION['username'];
 
 if (isset($_GET['delete'])) {
-    deleteSiswa($_GET['delete']);
+    deletePembayaran($_GET['delete']);
     header("Location: siswa.php?success=delete");
     exit;
 }
 
-
-
-$nisn = $_GET['edit'] ?? null;
-
-if ($nisn) {
-    $siswaToEdit = getSiswaById($nisn);
-}
-
-$siswaData = getAllData();
-
-if (isset($_GET['success'])) {
-    switch ($_GET['success']) {
-        case 'create':
-            $successMessage = " Data siswa berhasil ditambahkan.";
-            break;
-        case 'update':
-            $successMessage = "Data siswa berhasil diperbarui.";
-            break;
-        case 'delete':
-            $successMessage = " Data siswa berhasil dihapus.";
-            break;
-    }
-}
+$limit = 5;
+$page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
+$offset = ($page - 1) * $limit;
+$bulan = isset($_GET['bulan']) ? $_GET['bulan'] : null;
+$pembayaran = getPembayaranByTanggal($bulan, $limit, $offset);
+$totalData = countPagePembayaran($bulan);
+$totalPages = ceil($totalData / $limit);
 
 ?>
 
@@ -61,111 +30,96 @@ if (isset($_GET['success'])) {
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 
-
 <body class="bg-gray-100">
-<?php
-include '../componen/navbar.php';
-?>
+    <?php
+    include '../componen/navbar.php';
+    ?>
+    <h1 class="text-3xl font-bold mb-5 text-center mt-5">Laporan Pembayaran</h1>
+    <div class="container mx-auto  my-5 p-5 bg-white rounded shadow-md ">
 
-<h1 class="text-2xl font-medium py-3 px-7">WELKAM ADMIN DASHBOARD</h1>
-<h2 class="text-md font-medium text-cyan-700 px-15">Anda login sebagai Admin</h2>
-
-<!-- <section class="flex justify-center mt-4">
-  <div class="grid grid-cols-3 gap-20">
-    <div class="bg-white text-black flex flex-col justify-center items-center rounded-md border py-6 px-10 shadow-md font-bold">
-      <p>Jumlah siswa</p>
-      <p>1</p>
-    </div>
-    <div class="bg-white text-black flex flex-col justify-center items-center rounded-md border py-6 px-10 shadow-md font-bold">
-      <p>Jumlah petugas</p>
-      <p>1</p>
-    </div>
-    <div class="bg-white text-black flex flex-col justify-center items-center rounded-md border py-6 px-10 shadow-md font-bold">
-      <p>Total pembayaran bulan ini</p>
-      <p>1</p>
-    </div>
-  </div>
-</section> -->
-
-
-<div class="container mx-auto  my-5 p-5 bg-white rounded shadow-md">
-<div class="flex justify-between mb-4 ">
-
-    <h1 class="text-3xl font-bold mb-5">Data Laporan SPP</h1>
-   
-
-</div>
-
-<!-- ✅ ALERT -->
-<?php if (!empty($successMessage)): ?>
-    <div class="mb-5 px-4 py-2 bg-green-100 text-green-800 rounded border border-green-300">
-        <?= $successMessage; ?>
-    </div>
-<?php endif; ?>
-
-<!-- ✅ FORM -->
-<?php if (isset($siswaToEdit)): ?>
-    <form action="" method="POST" class="mb-5">
-        <input type="hidden" name="nisn" value="<?= $siswaToEdit['nisn']; ?>">
-        <div class="flex mb-3">
-            <input type="text" name="nis" value="<?= htmlspecialchars($siswaToEdit['nis']); ?>" class="px-4 py-2 w-1/2 border rounded" required>
-            <input type="text" name="nama" value="<?= htmlspecialchars($siswaToEdit['nama']); ?>" class="px-4 py-2 w-1/2 ml-2 border rounded" required>
-            <input type="text" name="nis" value="<?= htmlspecialchars($siswaToEdit['kelas']); ?>" class="px-4 py-2 w-1/2 border rounded" required>
-            <input type="text" name="nama" value="<?= htmlspecialchars($siswaToEdit['password']); ?>" class="px-4 py-2 w-1/2 ml-2 border rounded" required>
-            <button type="submit" name="update" class="ml-2 px-4 py-2 bg-red-600 text-white rounded">Update siswa</button>
-        </div>
-    </form>
-<?php else: ?>
-    <form action="" method="POST" class="mb-5 flex">
-        <div class="flex justify-between">
-        <a href="/php-front/admin/tambahSiswa/index.php" type="button" class="bg-blue-600 cursor-pointer rounded-md text-white px-4 py-2 hover:bg-blue-300">Tambah Siswa</a>
-        </div> 
-        <!-- <div class="flex mb-3">
-            <input type="text" name="Nis" class="px-4 py-2 w-1/2 border rounded" placeholder="Nis" required>
-            <input type="text" name="kompetensi_keahlian" class="px-4 py-2 w-1/2 ml-2 border rounded" placeholder="Kompetensi Keahlian" required>
-            <button type="submit" name="create" class="ml-2 px-4 py-2 bg-blue-500 text-white rounded ">Tambah Kelas</button>
-        </div> -->
-    </form>
-<?php endif; ?>
-
-<!-- ✅ TABLE -->
-<?php if (empty($siswaData)): ?>
-    <p>Tidak ada data siswa ditemukan.</p>
-<?php else: ?>
-    <table class="min-w-full table-auto border-collapse">
-        <thead>
-            <tr class="bg-gray-200">
-                <th class="px-4 py-2">Nis</th>
-                <th class="px-4 py-2">Nama siswa</th>
-                <th class="px-4 py-2">Tanggal Bayar</th>
-                <th class="px-4 py-2">Nominal</th>
-            </tr>
-        </thead>
-        <tbody>
+        <form method="GET" action="">
+            <label for="tanggal">Cari Pembayaran :</label>
+            <div class="flex">
+                <input type="month" class="w-full px-2 py-1 rounded-md border" name="bulan" id="bulan" value="<?php echo isset($_GET['bulan']) ? $_GET['bulan'] : ''; ?>">
+                <button type="submit" name="" class="ml-2 px-4 text-sm bg-[#45a2ff] text-white rounded ">Filter</button>
+                
+            </div>
             
+            <div class="mt-4">
 
-        <h1><?=htmlspecialchars( $username)?></h1>
+                <a href="generate.php?bulan=<?= urlencode($bulan) ?>&page=<?= $page ?>" 
+                target="_blank"
+                class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                Cetak
+            </a>
+        </div>
 
-        <form action="aksi_logout.php" method="POST">
+        
+        </form>
 
-            <?php foreach ($siswaData as $siswa): ?>
-                <tr class="border-t">
-                    <td class="px-4 py-2"><?= htmlspecialchars($siswa['nisn']); ?></td>
-                    <td class="px-4 py-2"><?= htmlspecialchars($siswa['nama']); ?></td>
-                    <td class="px-4 py-2"><?= htmlspecialchars($siswa['id_kelas']); ?></td>
-                    <td class="px-4 py-2"><?= htmlspecialchars($siswa['password']); ?></td>
-                    <td class="px-4 py-2">
-                  
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-            </form>
-        </tbody>
-    </table>
-
-<?php endif; ?>
-</div>
-
+        <div class="text-center">
+            <?php if (empty($pembayaran)): ?>
+                <p class="text-center mt-5 font-semibold">Anda belum mempunyai transaksi apapun</p>
+            <?php else: ?>
+        </div>
+        <form action="" method="POST" class="mb-5 flex text-center">
+            <table class="min-w-full table-auto border-collapse mt-5">
+                <thead>
+                    <tr class="bg-gray-200">
+                        <th class="px-4 py-2">NO</th>
+                        <th class="px-4 py-2">NIS</th>
+                        <th class="px-4 py-2">Nama Siswa</th>
+                        <th class="px-4 py-2">Tanggal Bayar</th>
+                        <th class="px-4 py-2">Jumlah Bayar</th>
+                        <th class="px-4 py-2">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <form action="" method="POST">
+                        <?php
+                        if ($pembayaran) {
+                            $no = 1;
+                            foreach ($pembayaran as $laporan): ?>
+                                <tr class="border-t">
+                                    <td class="px-4 py-2"><?= $no++ ?></td>
+                                    <td class="px-4 py-2"><?= htmlspecialchars($laporan['nis']); ?></td>
+                                    <td class="px-4 py-2"><?= htmlspecialchars($laporan['nama']); ?></td>
+                                    <td class="px-4 py-2"><?= htmlspecialchars($laporan['tgl_bayar']); ?></td>
+                                    <td class="px-4 py-2"><?= htmlspecialchars($laporan['jumlah_bayar']); ?></td>
+                                    <td class="px-4 py-2"><?php
+                                                            if ($laporan['status'] == 'selesai') { ?>
+                                            <p class="text-green-500"> <?= htmlspecialchars($laporan['status']); ?></p>
+                                        <?php } else { ?>
+                                            <p class="text-red-500"><?= htmlspecialchars($laporan['status']); ?> </p><?php
+                                                                                                                    } ?>
+                                    </td>
+                                </tr>
+                    <?php endforeach;
+                        }
+                    endif
+                    ?>
+                    </form>
+                </tbody>
+            </table>
+        </form>
+    </div>
+        <div class="mt-5 flex justify-center space-x-2">
+            <?php
+            if ($page > 1): ?>
+                <a href="?bulan=<?= urlencode($bulan) ?>&page=<?= $page - 1 ?>" class="px-3 py-1 bg-gray-300 rounded hover:bg-gray-400"><</a>
+            <?php endif; ?>
+    
+            <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                <a href="?bulan=<?= urlencode($bulan) ?>&page=<?= $i ?>"
+                    class="px-3 py-1 rounded <?= $i == $page ? 'bg-[#2D5074] text-white' : 'bg-gray-200 hover:bg-gray-300' ?>">
+                    <?= $i ?>
+                </a>
+            <?php endfor; ?>
+    
+            <?php if ($page < $totalPages): ?>
+                <a href="?bulan=<?= urlencode($bulan) ?>&page=<?= $page + 1 ?>" class="px-3 py-1 bg-gray-300 rounded hover:bg-gray-400">></a>
+            <?php endif; ?>
+        </div>
 </body>
 
 </html>

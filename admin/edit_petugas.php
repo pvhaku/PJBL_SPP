@@ -15,7 +15,7 @@ if (!$petugas) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
-    updatePetugas($_POST['id_petugas'], $_POST['username']);
+    updatePetugas($_POST['username'], $_POST['id_petugas']);
     exit;
 }
 ?>
@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
 <body class="bg-gray-100">
 <div class="container mx-auto my-5 p-5 bg-white rounded shadow-md">
     <h1 class="text-2xl font-bold mb-4">Edit Petugas</h1>
-    <form action="petugas_aksi.php" method="POST">
+    <form action="" method="POST">
     <input type="hidden" name="id_petugas" value="<?= htmlspecialchars($petugas['id_petugas']); ?>">
         <div class="mb-3">
             <label class="block font-semibold">Nama Petugas</label>

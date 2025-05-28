@@ -13,7 +13,8 @@ function loginUser($username , $password )
         $_SESSION['username'] = $user ['username'];
         header("Location: /php-front/admin/spp.php");
     }else{
-        return "Gagal";
+        header("Location: /php-front/login/index.php?error=Invalid username or password");
+
     }
 }
 ?>

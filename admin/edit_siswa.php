@@ -1,5 +1,6 @@
 <?php
 include 'siswa_aksi.php';
+session_start();
 
 if (!isset($_GET['nisn'])) {
     header('Location: ../siswa.php');
@@ -51,7 +52,7 @@ if (isset($_POST['update'])) {
             <input type="text" name="id_spp" value="<?= htmlspecialchars($siswa['id_spp']); ?>" class="w-full px-4 py-2 border rounded" required>
         </div>
         <div class="flex justify-end">
-            <a href="../siswa.php" class="mr-3 px-4 py-2 bg-gray-300 rounded">Batal</a>
+            <a href="/php-front/admin/siswa.php" class="mr-3 px-4 py-2 bg-gray-300 rounded">Batal</a>
             <button type="submit" name="update" class="px-4 py-2 bg-blue-600 text-white rounded">Update</button>
         </div>
     </form>

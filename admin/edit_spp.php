@@ -15,7 +15,7 @@ if (!$spp) {
 }
 
 if (isset($_POST['update'])) {
-    updateSpp($_POST['id_spp'], $_POST['tahun'], $_POST['nominal']);
+    updateSpp($_POST['tahun'], $_POST['nominal'], $_POST['id_spp']);
     header('Location: ../spp.php?success=update');
     exit;
 }
@@ -33,7 +33,7 @@ if (isset($_POST['update'])) {
 <body class="bg-gray-100">
 <div class="container mx-auto my-5 p-5 bg-white rounded shadow-md">
     <h1 class="text-2xl font-bold mb-4">Edit Spp</h1>
-    <form action="spp_aksi.php" method="POST">
+    <form action="" method="POST">
     <input type="hidden" name="id_spp" value="<?= htmlspecialchars($spp['id_spp']); ?>">
         <div class="mb-3">
             <label class="block font-semibold">Tahun</label>

@@ -1,6 +1,10 @@
 <?php
 include "aksi_login.php";
 
+if(isset($_SESSION['status'])) {
+    header("location:/php-front/dashboard_petugas/index.php");
+}
+
 $result = null;
 
 if($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -10,24 +14,17 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 
     if($result) {
         exit;
-    }
+    } 
 }
 
-
-
-if(isset($_SESSION["username"])) {
-    header("Location: /php-front/admin/spp.php");
-    exit;
-}
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Petugas Login</title>
     <link rel="stylesheet" href="../output.css"/>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
@@ -35,7 +32,7 @@ if(isset($_SESSION["username"])) {
 
 <div class="flex justify-center items-center min-h-screen bg-blue-50 ">
 <form method="POST" class=" shadow-xl p-4 grid grid-cols-1 gap-2  w-full max-w-md space-y-6 rounded-2xl">
-<h2 class=" font-bold text-3xl text-center">Login</h2>
+<h2 class=" font-bold text-3xl text-center">Login Petugas</h2>
 <div>
     <label class="font-semibold ">Username</label>
     <input type="text" name="username" required placeholder="username" class="w-full px-4 py-2 rounded-xl focus:outline-none focus:ring-2 outline-1 focus:ring-blue-400 bg-blue-50  placeholder-blue-500">
@@ -48,10 +45,14 @@ if(isset($_SESSION["username"])) {
 
     <button class ="px-6 py-3 rounded-xl  bg-blue-600 text-white font-semibold transition hover:scale-110 hover:shadow-xl 
     focus:ring-3 focus:outline-hidden cursor-pointer ml-10 w-78 " type="submit">Login</button>
+
+    <div class=' text-center'>
+      <h1 class=" text-md font-semibold">Login Sebagai<span class="text-violet-600 cursor-pointer">
+<a href="/php-front/login_siswa/index.php">Siswa</a>
 </form>
 </div>
 
-<div class="flex items-center justify-center min-h-screen bg-gradient-to-br from-purple-100 to-fuchsia-100 p-4">
+<!-- <div class="flex items-center justify-center min-h-screen bg-gradient-to-br from-purple-100 to-fuchsia-100 p-4">
   <form class="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-md space-y-6">
     <h2 class="text-3xl font-bold text-center text-purple-700">Form Ungu & Fuchsia</h2>
 
@@ -78,7 +79,7 @@ if(isset($_SESSION["username"])) {
         Kirim Form
       </button>
     </div>
-  </form>
+  </form> -->
 </div>
 </body>
 </html>

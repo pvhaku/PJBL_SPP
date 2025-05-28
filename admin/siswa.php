@@ -5,15 +5,16 @@ session_start();
 
 $username =$_SESSION['username'];
 
+$totalBayarBulanIni = countAllSpp();
 
 if (isset($_POST['create'])) {
-    createSiswa($_POST['nis'], $_POST['nama'], $_POST['kelas'], $_POST['password']);
+    createSiswa($_POST['nisn'], $_POST['nis'], $_POST['nama'], $_POST['id_kelas'], $_POST['id_spp'], $_POST['password']);
     header("Location: siswa.php?success=create");
     exit;
 }
 
 if (isset($_POST['update'])) {
-    updateSiswa($_POST['nis'], $_POST['nama'], $_POST['kelas'], $_POST['password']);
+    updateSiswa( $_POST['nisn'], $_POST['nis'], $_POST['nama'], $_POST['kelas'], $_POST['id_spp'], $_POST['password'], $_POST['id']);
     header("Location: siswa.php?success=update");
     exit;
 }
@@ -74,15 +75,24 @@ include '../componen/navbar.php';
   <div class="grid grid-cols-3 gap-20">
     <div class="bg-white text-black flex flex-col justify-center items-center rounded-md border py-6 px-10 shadow-md font-bold">
       <p>Jumlah siswa</p>
-      <p>1</p>
+        <?php
+            echo countSiswa();
+        ?>
+      <p></p>
     </div>
     <div class="bg-white text-black flex flex-col justify-center items-center rounded-md border py-6 px-10 shadow-md font-bold">
       <p>Jumlah petugas</p>
-      <p>1</p>
+        <?php
+            echo countPetugas();
+        ?>
+      <p></p>
     </div>
     <div class="bg-white text-black flex flex-col justify-center items-center rounded-md border py-6 px-10 shadow-md font-bold">
       <p>Total pembayaran bulan ini</p>
-      <p>1</p>
+        <?php
+             echo number_format($totalBayarBulanIni, 0, ',', '.');
+        ?>
+      <p></p>
     </div>
   </div>
 </section>
@@ -111,7 +121,7 @@ include '../componen/navbar.php';
             <input type="text" name="nis" value="<?= htmlspecialchars($siswaToEdit['nis']); ?>" class="px-4 py-2 w-1/2 border rounded" required>
             <input type="text" name="nama" value="<?= htmlspecialchars($siswaToEdit['nama']); ?>" class="px-4 py-2 w-1/2 ml-2 border rounded" required>
             <input type="text" name="nis" value="<?= htmlspecialchars($siswaToEdit['kelas']); ?>" class="px-4 py-2 w-1/2 border rounded" required>
-            <input type="text" name="nama" value="<?= htmlspecialchars($siswaToEdit['password']); ?>" class="px-4 py-2 w-1/2 ml-2 border rounded" required>
+            <input type="text" name="nama" value="<?= htmlspecialchars($siswaToEdit['alamat']); ?>" class="px-4 py-2 w-1/2 ml-2 border rounded" required>
             <button type="submit" name="update" class="ml-2 px-4 py-2 bg-red-600 text-white rounded">Update siswa</button>
         </div>
     </form>
@@ -138,7 +148,7 @@ include '../componen/navbar.php';
                 <th class="px-4 py-2">Nisn</th>
                 <th class="px-4 py-2">Nama siswa</th>
                 <th class="px-4 py-2">Kelas</th>
-                <th class="px-4 py-2">Password</th>
+                <th class="px-4 py-2">alamat</th>
                 <th class="px-4 py-2">Aksi</th>
             </tr>
         </thead>
@@ -154,7 +164,7 @@ include '../componen/navbar.php';
                     <td class="px-4 py-2"><?= htmlspecialchars($siswa['nisn']); ?></td>
                     <td class="px-4 py-2"><?= htmlspecialchars($siswa['nama']); ?></td>
                     <td class="px-4 py-2"><?= htmlspecialchars($siswa['id_kelas']); ?></td>
-                    <td class="px-4 py-2"><?= htmlspecialchars($siswa['password']); ?></td>
+                    <td class="px-4 py-2"><?= htmlspecialchars($siswa['alamat']); ?></td>
                     <td class="px-4 py-2">
                     <a href="edit_siswa.php?nisn=<?= $siswa['nisn']; ?>" class="text-blue-500 hover:underline">Edit</a>
 
